@@ -16,21 +16,14 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const octokit = github;
-
-            const respuesta = await octokit.rest.repos.get({
+            const resultado = await github.rest.repos.get({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
 
-            console.log("Nombre: " + respuesta.data.name);
-            console.log("Descripcion: " + respuesta.data.description);
-            console.log("Visibilidad: " + respuesta.data.visibility);
-
-            const issues = await octokit.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: "open"
-            });
+            console.log("Repositorio:", resultado.data.name);
+            console.log("Descripción:", resultado.data.description);
+            console.log("Privado:", resultado.data.private);
+            console.log("URL:", resultado.data.html_url);
 
             console.log("Issues y Pull Requests abiertos devueltos: " + issues.data.length);
