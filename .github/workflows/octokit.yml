@@ -1,4 +1,4 @@
-ame: Ejemplo Octokit
+name: Ejemplo Octokit
 
 on:
   workflow_dispatch:
