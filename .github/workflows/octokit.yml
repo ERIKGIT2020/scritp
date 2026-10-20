@@ -1,4 +1,4 @@
-name: Ejemplo Octokit
+ame: Ejemplo Octokit
 
 on:
   workflow_dispatch:
@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Consultar GitHub con Octokit
-        uses: actions/github-script@v9
+      - name: Consultar repositorio
+        uses: actions/github-script@v8
         with:
           script: |
             const resultado = await github.rest.repos.get({
@@ -22,8 +22,4 @@ jobs:
             });
 
             console.log("Repositorio:", resultado.data.name);
-            console.log("Descripción:", resultado.data.description);
-            console.log("Privado:", resultado.data.private);
             console.log("URL:", resultado.data.html_url);
-
-            console.log("Issues y Pull Requests abiertos devueltos: " + issues.data.length);
