@@ -1,0 +1,26 @@
+name: Ejecutar PowerShell
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  powershell:
+    runs-on: windows-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Ejecutar PowerShell
+        shell: pwsh
+        run: |
+          Write-Host "Hola desde PowerShell"
+          Write-Host "Estoy ejecutando GitHub Actions"
+
+          $fecha = Get-Date
+          Write-Host "Fecha actual: $fecha"
+
+          $archivos = Get-ChildItem
+          $archivos | Format-Table Name, Length
