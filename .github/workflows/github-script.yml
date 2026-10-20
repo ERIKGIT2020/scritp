@@ -1,0 +1,28 @@
+name: Ejemplo GitHub Script
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  automatizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ejecutar GitHub Script
+        uses: actions/github-script@v9
+        with:
+          script: |
+            console.log("Hola desde GitHub Script");
+
+            const resultado = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "Prueba automatica",
+              body: "Este Issue fue creado por GitHub Actions"
+            });
+
+            console.log("Issue creado: " + resultado.data.html_url);
