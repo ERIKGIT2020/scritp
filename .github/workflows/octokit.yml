@@ -1,0 +1,36 @@
+name: Ejemplo Octokit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  consultar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Consultar GitHub con Octokit
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const octokit = github;
+
+            const respuesta = await octokit.rest.repos.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            console.log("Nombre: " + respuesta.data.name);
+            console.log("Descripcion: " + respuesta.data.description);
+            console.log("Visibilidad: " + respuesta.data.visibility);
+
+            const issues = await octokit.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open"
+            });
+
+            console.log("Issues y Pull Requests abiertos devueltos: " + issues.data.length);
